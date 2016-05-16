@@ -9,7 +9,17 @@ body,html {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	color: #ffffff;
 }
+input[type=text] {
+	width: 300px;
+	height: 40px;
+	font-size: 1.2em;
+}
 
+button {
+	width: 100px;
+	height: 40px;
+	font-size: 1.2em;
+}
 a {
 	text-decoration: none;
 	color: #00aed1;

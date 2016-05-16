@@ -26,3 +26,38 @@ app.listen(appEnv.port, '0.0.0.0', function() {
   // print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
 });
+
+var watson = require('watson-developer-cloud');
+
+var language_translation = watson.language_translation({
+  username: '7faa8b9f-3021-42fe-90ca-9be860fda71f',
+  password: 'nLFy5CLSPPZ1',
+  version: 'v2'
+});
+
+app.post('/translate', function (req, res) {
+  var inputText = req.query.text;
+  var inputLanguage;
+  language_translation.identify({
+    text: inputText },
+    function (err, language) {
+      if (err) {
+          console.log('error:', err);
+      }
+      else {
+        //this service returns a list of languages sorted by most to least likely, so we will just choose the most likely
+        inputLanguage = language.languages[0].language;
+        language_translation.translate({
+          text: inputText, source : inputLanguage, target: 'en' },
+          function (err, translation) {
+            if (err) {
+              console.log('error:', err);     
+            }
+            else {
+              res.send(translation);
+            }
+        });
+      }
+  });
+  
+});
